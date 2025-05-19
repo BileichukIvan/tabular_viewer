@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoint
+
+# Streamlit cache
+.streamlit/
+
+# Local environment files
+.env
+.venv/
+venv/
+ENV/
+
+# Python virtual environment
+*.env
+*.venv
+Pipfile.lock
+
+#Pycharm
+.idea/
