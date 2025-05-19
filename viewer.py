@@ -92,11 +92,7 @@ def main():
     )
     selected_file = next(f for f in table_files if f.name == selected_name)
 
-    df, err = read_file(selected_file)
-    if err:
-        st.warning(f"⚠️ {err}")
-        return
-
+    df = read_file(selected_file)
     df = clean_dataframe(df)
 
     if df.empty:
