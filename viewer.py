@@ -19,7 +19,7 @@ def detect_csv_delimiter(sample: str) -> str:
     return ";"
 
 
-def read_file(path: Path) -> Tuple[Optional[pd.DataFrame], Optional[str]]:
+def read_file(path: Path) -> Optional[pd.DataFrame] or Optional[str]:
     """
     Reads tabular data from a supported file.
 
@@ -34,28 +34,28 @@ def read_file(path: Path) -> Tuple[Optional[pd.DataFrame], Optional[str]]:
                 sample = f.read(1024)
             delimiter = detect_csv_delimiter(sample)
             df = pd.read_csv(path, delimiter=delimiter)
-            return df, None
+            return df
         elif ext == ".xlsx":
             df = pd.read_excel(path)
-            return df, None
+            return df
         elif ext == ".sas7bdat":
             df, _ = pyreadstat.read_sas7bdat(path)
-            return df, None
+            return df
         elif ext == ".xpt":
             df, _ = pyreadstat.read_xport(path)
-            return df, None
+            return df
         else:
-            return None, f"Unsupported file extension: {ext}"
+            return f"Unsupported file extension: {ext}"
     except FileNotFoundError:
-            return None, f"File not found: {path.name}"
+            return f"File not found: {path.name}"
     except pd.errors.EmptyDataError:
-        return None, f"File is empty or has no data: {path.name}"
+        return f"File is empty or has no data: {path.name}"
     except pd.errors.ParserError:
-        return None, f"Parsing error while reading file: {path.name}"
+        return f"Parsing error while reading file: {path.name}"
     except (OSError, IOError) as e:
-        return None, f"I/O error while reading file {path.name}: {e}"
+        return f"I/O error while reading file {path.name}: {e}"
     except Exception as e:
-        return None, f"Unexpected error while reading {path.name}: {e}"
+        return f"Unexpected error while reading {path.name}: {e}"
 
 
 @st.cache_data(show_spinner="Cleaning data...")
