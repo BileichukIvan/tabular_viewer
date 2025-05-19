@@ -19,3 +19,6 @@ ENV/
 *.env
 *.venv
 Pipfile.lock
+
+#Pycharm
+.idea/
